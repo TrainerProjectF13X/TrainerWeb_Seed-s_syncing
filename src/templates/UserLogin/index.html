@@ -1,0 +1,10 @@
+{% extends "base_UserLogin.html" %}
+{% block title%}Index{%endblock%}
+
+{% block id %}index{% endblock%}
+{% block content%}
+<h1>Welcome</h1>
+<a href="{% url 'UserLogin:sign_up' %}">Join Today</a>
+<p></p>
+<a href="{% url 'UserLogin:login' %}">Existing User</a>
+{% endblock%}

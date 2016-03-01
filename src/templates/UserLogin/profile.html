@@ -1,0 +1,10 @@
+{% extends "base_UserLogin.html" %}
+{% block title%}Login{%endblock%}
+
+{% block id %}login{% endblock%}
+
+{% block content%}
+{{ user_info }}
+<a href="{% url 'UserLogin:logout' %}">Logout</a> </br>
+<a href="/posts" > Testing</a> </br>
+{% endblock%}
