@@ -1,4 +1,3 @@
-import sys, os
 
 
 from django.shortcuts import render, get_object_or_404, redirect
@@ -9,12 +8,18 @@ from django.contrib.auth.decorators import login_required
 from UserLogin.models import RegularAccount as trainerDB
 from UserLogin.models import RegularAccount as regularDB
 from .forms import PostForm as Pf
-
+from django.core.exceptions import ObjectDoesNotExist
 @login_required
 def post_list(request):
     current_user = request.user
+    try:
+        trainer_user = current_user.traineraccount
+        queryset = regularDB.objects.filter(trainer=trainer_user.id)
 
-    queryset = Po.objects.all().order_by("-timestamp")
+    except ObjectDoesNotExist:
+        return
+
+    #queryset = Po.objects.all().order_by("-timestamp")
 
     context = {
         "objects_list": queryset,
@@ -25,10 +30,10 @@ def post_list(request):
 
 @login_required
 def post_detail(request, pk=None):
-    instance = get_object_or_404(Po, id=pk)
+    instance = get_object_or_404(regularDB, id=pk)
     context = {
         "instance": instance,
-        "title": instance.title,
+
     }
     return render(request, "posts/post_detail.html", context)
 
